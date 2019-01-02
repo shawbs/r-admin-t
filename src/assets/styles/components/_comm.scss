@@ -1,0 +1,14 @@
+#root{
+    .header{
+        padding: 0 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .logo{
+        background: $color-main;
+        max-width: 100px;
+        height: 50px;
+        margin: 20px auto;
+    }
+}

@@ -1,0 +1,37 @@
+@charset "utf-8";
+/**
+ * 全局样式出口
+ */
+@import "variables/index";
+@import "mixin/index";
+@import "base/index";
+@import "components/index";
+
+
+// 为了 屏蔽 uc 广告
+div[id^="_"] {
+    display: none !important;
+}
+
+// 隐藏站长统计
+#cnzz_stat_icon_1275164349{
+    position: fixed;
+    top: -100%;
+}
+
+.vsim-picker{
+    background: #ffffff;
+}
+
+.mint-popup{
+    width: 101%;
+}
+
+.swiper-pagination-bullet{
+    background: #ffffff;
+    opacity: .6;
+    &.swiper-pagination-bullet-active{
+        background: #007aff;
+        opacity: 1;
+    }
+}

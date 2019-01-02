@@ -24,7 +24,6 @@ const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin-alt');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 
-
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
 // Some apps do not need the benefits of saving a web request, so not inlining the chunk
@@ -433,6 +432,26 @@ module.exports = function(webpackEnv) {
               // Remove this when webpack adds a warning or an error for this.
               // See https://github.com/webpack/webpack/issues/6571
               sideEffects: true,
+            },
+            {
+              test: /\.less$/,
+              use: [
+                {
+                  loader: 'style-loader',
+                }, 
+                {
+                  loader: 'css-loader', // translates CSS into CommonJS
+                }, 
+                {
+                  loader: 'less-loader', // compiles Less to CSS
+                  options: {
+                    modifyVars: {
+                      'primary-color': '#1DA57A',
+                    },
+                    javascriptEnabled: true,
+                  }
+                }
+              ]
             },
             // Adds support for CSS Modules, but using SASS
             // using the extension .module.scss or .module.sass
