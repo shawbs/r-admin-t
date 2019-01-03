@@ -1,9 +1,4 @@
 
-
-import Vue from 'vue';
-import Router from '@/routers';
-
-
 const requestMap = {}; // 当前请求映射表
 
 /**
@@ -49,7 +44,7 @@ function repeatRequestFinish(response) {
 function httpStatusCodeHandler(error) {
     const { response } = error;
     if (typeof response !== 'object') return;
-    const { status, data } = response;
+    const { status } = response;
     switch (status) {
         // case 401:
         //     Router.push('/buyer/login');
@@ -102,11 +97,11 @@ export function responseSuccess(response) {
     // 接口错误提示信息全局统一拦截提示
     if (result && result.status) {
         if (config._isHandleError) return Promise.reject(result);
-        Vue.prototype.$message.alert(result.statusTitle, '温馨提示', {
-            callback() {
+        // Vue.prototype.$message.alert(result.statusTitle, '温馨提示', {
+        //     callback() {
                 
-            },
-        });
+        //     },
+        // });
         return Promise.reject(result);
     } else {
         return Promise.resolve(result);

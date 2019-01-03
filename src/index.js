@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import '@/assets/styles/app.scss';
-import App from '@/app';
+import App from '@/App';
 import * as serviceWorker from './serviceWorker';
 // import AppStore from '@/stores/app'
 

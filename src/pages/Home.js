@@ -1,5 +1,5 @@
 import React from 'react';
-import { observer } from "mobx-react";
+import { observer, inject } from "mobx-react";
 import { Layout, Menu, Icon, Avatar, Dropdown } from 'antd';
 
 const { Header, Sider, Content } = Layout;
@@ -19,11 +19,12 @@ const menu = (
   </Menu.Item>
 </Menu>)
 
+@inject('baseStore','userStore')
 @observer
 class Home extends React.Component {
   constructor(props){
     super(props)
-    console.log(props)
+    this.userStore = props.userStore
     this.state = {
       collapsed: false,
     }
@@ -31,6 +32,12 @@ class Home extends React.Component {
 
   componentDidMount(){
     console.log(this)
+    this.userStore.getUserData().then(res=>{
+      console.log(this.userStore)
+      console.log(res)
+    },err=>{
+      console.log(err)
+    })
   }
 
   toggle = () => {
@@ -90,7 +97,7 @@ class Home extends React.Component {
             margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280,
           }}
           >
-            Content
+            Content{this.userStore.userId}
           </Content>
         </Layout>
       </Layout>

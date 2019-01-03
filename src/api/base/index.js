@@ -1,4 +1,4 @@
-import Vue from 'vue';
+
 import Axios from 'axios';
 import Config from './config';
 import { requestSuccess, requestFail, responseSuccess, responseFail } from './interceptors';
@@ -12,7 +12,6 @@ axiosInstance.interceptors.request.use(requestSuccess, requestFail);
 // 响应拦截
 axiosInstance.interceptors.response.use(responseSuccess, responseFail);
 
-const nullFunc = function(){}
 
 class Http {
     constructor() {

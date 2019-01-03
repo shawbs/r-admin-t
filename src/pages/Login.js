@@ -1,20 +1,26 @@
 import React from 'react'
-import { observer } from "mobx-react";
-import UserStore from '@/stores/user'
+import { observer, inject } from "mobx-react";
 import { Form, Icon, Input, Button, Checkbox, Row, Col } from 'antd'
 
+@inject('userStore')
+@observer
 class NormalLoginForm extends React.Component{
-
+    constructor(props){
+        super(props)
+        this.userStore = props.userStore
+    }
+    
     componentDidMount(){
-        console.log(this)
+        console.log(this.userStore)
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-          if (!err) {
-            console.log('Received values of form: ', values);
-          }
+            if (!err) {
+                this.userStore.setUserId(values.userName)
+                console.log('Received values of form: ', values);
+            } 
         });
     }
 
@@ -24,14 +30,14 @@ class NormalLoginForm extends React.Component{
             <Form onSubmit={this.handleSubmit} className="login-form">
                 <Form.Item>
                 {getFieldDecorator('userName', {
-                    rules: [{ required: true, message: 'Please input your username!' }],
+                    rules: [{ required: true, message: '请输入用户名!' }],
                 })(
                     <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
                 )}
                 </Form.Item>
                 <Form.Item>
                 {getFieldDecorator('password', {
-                    rules: [{ required: true, message: 'Please input your Password!' }],
+                    rules: [{ required: true, message: '请输入用户密码!' }],
                 })(
                     <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
                 )}
@@ -41,13 +47,18 @@ class NormalLoginForm extends React.Component{
                     valuePropName: 'checked',
                     initialValue: true,
                 })(
-                    <Checkbox>Remember me</Checkbox>
+                    <Checkbox>记住我</Checkbox>
                 )}
-                <a className="login-form-forgot" href="">Forgot password</a>
-                <Button type="primary" htmlType="submit" className="login-form-button">
-                    Log in
-                </Button>
-                Or <a href="">register now!</a>
+                </Form.Item>
+                <Form.Item>
+                    <Button type="primary" htmlType="submit" className="login-form-button">
+                        登录
+                    </Button>
+                    <a href="#/"> link home</a>
+                </Form.Item>
+                <Form.Item>
+                    <a className="login-form-forgot" href="##">忘记密码</a>
+                    或 <a href="##">注册!{this.userStore.userId}</a>
                 </Form.Item>
             </Form>
         )
@@ -58,7 +69,7 @@ const WrappedNormalLoginForm = Form.create()(NormalLoginForm);
 @observer
 class Login extends React.Component{
     componentDidMount(){
-        console.log(UserStore)
+        console.log(this)
     }
     render(){
         return (

@@ -69,8 +69,8 @@ class Comm {
      */
     pushTrackEvent(source, action) {
         if (window._czc && window._hmt) {
-            _czc.push(['_trackEvent', source + '渠道', action, `来自${source}的访客,${action}的次数`]);
-            _hmt.push(['_trackEvent', source + '渠道', action, `来自${source}的访客,${action}的次数`]);
+            window._czc.push(['_trackEvent', source + '渠道', action, `来自${source}的访客,${action}的次数`]);
+            window._hmt.push(['_trackEvent', source + '渠道', action, `来自${source}的访客,${action}的次数`]);
         } else {
             console.log('统计代码还未安装')
         }
@@ -82,10 +82,10 @@ class Comm {
      */
     pushTrackView() {
         if (window._czc && window._hmt) {
-            let contentUrl = location.pathname + location.hash;
+            let contentUrl = window.location.pathname + window.location.hash;
             let refererUrl = '/';
-            _czc.push(['_trackPageview', contentUrl, refererUrl]);
-            _hmt.push(['_trackPageview', contentUrl, refererUrl]);
+            window._czc.push(['_trackPageview', contentUrl, refererUrl]);
+            window._hmt.push(['_trackPageview', contentUrl, refererUrl]);
         } else {
             console.log('统计代码还未安装');
         }
@@ -253,10 +253,10 @@ class Comm {
                 reg.lastIndex = 0;
                 // console.log(item, reg, info, isValid)
                 if (!isValid) {
-                    wx.showToast({
-                        title: VERIFYCONFIG[item].title + '输入错误!',
-                        icon: 'none'
-                    })
+                    // wx.showToast({
+                    //     title: VERIFYCONFIG[item].title + '输入错误!',
+                    //     icon: 'none'
+                    // })
                     return false
                 }
             }
@@ -311,6 +311,7 @@ class Comm {
             case 'object':
             case 'array':
                 return JSON.stringify(a) === JSON.stringify(b)
+            default:
         }       
     }
 }
