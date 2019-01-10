@@ -7,7 +7,7 @@ import Login from '@/pages/Login'
 const Routes = () => (
     <HashRouter>
         <Switch>
-          <Route exact path="/"  component = {Home}/>
+          <Route path="/home"  component = {Home}/>
           <Route exact path="/login"  component = {Login}/>
         </Switch>
     </HashRouter>

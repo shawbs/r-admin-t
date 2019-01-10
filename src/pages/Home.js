@@ -1,6 +1,9 @@
 import React from 'react';
 import { observer, inject } from "mobx-react";
 import { Layout, Menu, Icon, Avatar, Dropdown } from 'antd';
+import { Route } from 'react-router-dom';
+import Welcome from './child/Welcome';
+import Main from './child/Main';
 
 const { Header, Sider, Content } = Layout;
 const menu = (
@@ -55,7 +58,7 @@ class Home extends React.Component {
           collapsed={this.state.collapsed}
         >
           <div className="logo" />
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+          <Menu theme="dark" mode="inline">
             <Menu.Item key="1">
               <Icon type="user" />
               <span>nav 1</span>
@@ -83,23 +86,27 @@ class Home extends React.Component {
           </Menu>
         </Sider>
         <Layout>
-            <Header className="header" style={{ background: '#fff' }}>
-            <Icon
-              className="trigger"
-              type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
-              onClick={this.toggle}
-            />
-            <Dropdown overlay={menu}>
-              <Avatar style={{ backgroundColor: '#87d068' }} icon="user" />
-            </Dropdown>
-          </Header>
-          <Content style={{
-            margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280,
-          }}
-          >
-            Content{this.userStore.userId}
-          </Content>
+            <div>
+              <Header className="header" style={{ background: '#fff' }}>
+                <Icon
+                  className="trigger"
+                  type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
+                  onClick={this.toggle}
+                />
+                <Dropdown overlay={menu}>
+                  <Avatar style={{ backgroundColor: '#87d068' }} icon="user" />
+                </Dropdown>
+              </Header>
+              <Content style={{
+                margin: '24px 0', padding: 24, background: '#fff', minHeight: 280,
+              }}
+              >
+                <Route exact path="/home"  component = {Welcome}/>
+                <Route exact path="/home/main"  component = {Main}/>
+              </Content>
+            </div>
         </Layout>
+
       </Layout>
     );
   }
